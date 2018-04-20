@@ -7,12 +7,17 @@ let cookieParser = require('cookie-parser'); //to parse the cookie header and po
                                         // (essentially provides a convenient method for accessing cookie information).
 let faviacon = require('serve-favicon'); //Node middleware for serving a favicon
 let logger = require('morgan'); //An HTTP request logger middleware for node.
+let passport = require('passport'); //simplifies the process of handling authentication in Express. It provides a common
+// gateway to work with many different authentication “strategies”, such as logging in with Facebook, Twitter or Oauth.
 
 let app = express();
 
 let routes = require('./api/routes/index');
 
 require('./api/models/db');
+require('./api/config/passport');
+
+app.use(passport.initialize());
 app.use('/api', routes);
 
 //use the Express.static middleware to get Express to serve all the static files
